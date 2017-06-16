@@ -9,9 +9,12 @@
 #include<ctype.h>
 #include<string.h>
 
+//tecnologias da informação e comunicação e suas relações com a agricultura
+//tecnologiasdainformaçãoecomunicaçãoesuasrelaçõescomaagricultura
+
 	typedef struct registroTombo{
 		int numTombo;
-		char nomeObra [50];
+		char nomeObra [150];
 		char nomeAutor [50];
 		char nomeEditora [30];
 		int codArea;
@@ -27,7 +30,7 @@
 	struct registroObra Obra;
 
 int criarDataBase(FILE *dataBase){
-     if((dataBase = fopen("libraryDataBase.dat","wb")) == NULL){
+     if((dataBase = fopen("libraryDataBase.txt","a+")) == NULL){
     	 exit(0);
      }else{
     	 return 1;//error
@@ -45,11 +48,13 @@ void cadastrarTombos(FILE *libraryDataBase){
 	Tombo newTombo;
 
     //Tombo = (struct registroTombo*) malloc(sizeof(struct registroTombo));
-    if((libraryDataBase = fopen("libraryDataBase","a+b")) != NULL){
+    if((libraryDataBase = fopen("libraryDataBase.txt","a+")) != NULL){
 
 		//numero do tombo gerar automaticamente seguindo a estrutura xxxx-moth-year
     	printf("Número do Tombo: ");
     	scanf("%d", &newTombo.numTombo);
+
+    	fflush(stdin);
 
     	printf("Nome do livro: ");
 	 	scanf(" %s", &newTombo.nomeObra);
