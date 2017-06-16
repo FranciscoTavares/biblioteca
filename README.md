@@ -1,4 +1,4 @@
-# biblioteca
+# Biblioteca
 
   Descrição
  
@@ -12,9 +12,9 @@
  
   Defina um menu de oções a seguir:
  
-  cadastrar tombos;
-  cadastrar obras;
-  mostrar obras por áreas;
-  mostrar obras por autor;
-  mostrar obras por editora;
-  encerrar programa.
+  cadastrar tombos;\n
+  cadastrar obras;\n
+  mostrar obras por áreas;\n
+  mostrar obras por autor;\n
+  mostrar obras por editora;\n
+  encerrar programa.\n
