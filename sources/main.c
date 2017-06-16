@@ -14,9 +14,9 @@
 
 	typedef struct registroTombo{
 		int numTombo;
-		char nomeObra [150];
-		char nomeAutor [50];
-		char nomeEditora [30];
+		char nomeObra[150];
+		char nomeAutor[50];
+		char nomeEditora[30];
 		int codArea;
 	}Tombo;
 
@@ -54,16 +54,14 @@ void cadastrarTombos(FILE *libraryDataBase){
     	printf("Número do Tombo: ");
     	scanf("%d", &newTombo.numTombo);
 
-    	fflush(stdin);
-
     	printf("Nome do livro: ");
-	 	scanf(" %s", &newTombo.nomeObra);
+    	scanf("\n%[^\n]s",newTombo.nomeObra);
 
 	 	printf("Nome do Autor: ");
-	 	scanf(" %s", &newTombo.nomeAutor);
+	 	scanf("\n%[^\n]s", newTombo.nomeAutor);
 
 	 	printf("Nome do Editora: ");
-	 	scanf(" %s", &newTombo.nomeEditora);
+	 	scanf("\n%[^\n]s", newTombo.nomeEditora);
 
 	 	printf("Código da Área: ");
 	 	scanf("%d",&newTombo.codArea);
@@ -80,7 +78,7 @@ void cadastrarTombos(FILE *libraryDataBase){
        printf("%d \n", newTombo.codArea);
      }
 
-	 fclose(libraryDataBase);
+	fclose(libraryDataBase);
 
 	 printf(" ********* TOMBOS CADASTRADO ********* \n\n");
 
@@ -114,7 +112,7 @@ void menu(FILE *libraryDataBase){
 	printf("Bem vindo ao acervo da biblioteca!\n");
 	printf("Informe-me uma opção: ");
 	scanf("%d",&key);
-
+	fflush(stdin);
 
 	switch (key) {
 		case 1:
