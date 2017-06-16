@@ -6,7 +6,7 @@
 
 #include<stdio.h>
 #include<stdlib.h>
-#include <ctype.h>
+#include<ctype.h>
 
 
 void cadastrarTombos(){
@@ -57,7 +57,8 @@ void menu(){
 			mostrarObrasPorEditora();
 			break;
 		case 6:
-			exit(0);//encerrar programa
+			encerrarPrograma();
+			break;
 		default:
 			printf("Ops, você não informou-me uma opção válida!!\n\n");
 			printf("Deseja repetir? [y|n] ");
