@@ -8,6 +8,7 @@
 #include<stdlib.h>
 #include<ctype.h>
 #include<string.h>
+#include<unistd.h>
 
 //tecnologias da informação e comunicação e suas relações com a agricultura
 //tecnologiasdainformaçãoecomunicaçãoesuasrelaçõescomaagricultura
@@ -26,20 +27,29 @@
 			int dataCompra;
 	};
 
-	//struct registroTombo Tombo;
-	struct registroObra Obra;
+	void cadastrarTombos(FILE *DataBase);
+	void cadastrarObras();
+	void mostrarObrasPorAutor();
+	void mostrarObrasPorEditora();
+	void mostrarObrasPorAreas();
+	void encerrarPrograma();
+	void menu(FILE *DataBase);
+	int criarDataBase(FILE *DataBase);
 
-int criarDataBase(FILE *dataBase){
-     if((dataBase = fopen("libraryDataBase.txt","a+")) == NULL){
-    	 exit(0);
-     }else{
-    	 return 1;//error
-     }
-     fclose(dataBase);
-     return 0;//success
+int main(int argc, char** argv){
+
+	FILE *dataBase;
+	 if(criarDataBase(dataBase)){
+	    	 menu(dataBase);
+	 }else{
+		 printf("Ops, não foi possível encontrar ou criar um arquivo de banco de dados");
+		 return 1;//error
+	 }
+	 return (EXIT_SUCCESS);
 }
 
-void cadastrarTombos(FILE *libraryDataBase){
+
+void cadastrarTombos(FILE* DataBase){
 
 	system("clear");// limpar a tela para linux
 
@@ -48,7 +58,7 @@ void cadastrarTombos(FILE *libraryDataBase){
 	Tombo newTombo;
 
     //Tombo = (struct registroTombo*) malloc(sizeof(struct registroTombo));
-    if((libraryDataBase = fopen("libraryDataBase.txt","a+")) != NULL){
+    if((DataBase = fopen("dataBase.txt","a+")) != NULL){
 
 		//numero do tombo gerar automaticamente seguindo a estrutura xxxx-moth-year
     	printf("Número do Tombo: ");
@@ -66,30 +76,29 @@ void cadastrarTombos(FILE *libraryDataBase){
 	 	printf("Código da Área: ");
 	 	scanf("%d",&newTombo.codArea);
 
-	 	fwrite(&newTombo,sizeof(Tombo),1,libraryDataBase);
-	 	rewind (libraryDataBase);
+	 	fwrite(&newTombo,sizeof(Tombo),1,DataBase);
+	 	rewind (DataBase);
     }
-    printf("TESTE DO VETOR: \n");
-    while(fread(&newTombo,sizeof(Tombo),1,libraryDataBase)==1){
-       printf("%d \n", newTombo.numTombo);
-       printf("%s \n", newTombo.nomeObra);
-       printf("%s \n", newTombo.nomeAutor);
-       printf("%s \n", newTombo.nomeEditora);
-       printf("%d \n", newTombo.codArea);
-     }
+	fclose(DataBase);
 
-	fclose(libraryDataBase);
-
-	 printf(" ********* TOMBOS CADASTRADO ********* \n\n");
+	printf(" ********* TOMBOS CADASTRADO ********* \n\n");
+	sleep(2);
+	system("clear");
+	menu(DataBase);
 
 }
-
 
 void cadastrarObras(){
-	printf("cadastrarObras");
-}
-void mostrarObrasPorAreas(){
 	printf("mostrarObrasPorAreas");
+	printf("TESTE DO VETOR: \n");
+//    while(fread(&newTombo,sizeof(Tombo),1,libraryDataBase)==1){
+//       printf("%d \n", newTombo.numTombo);
+//       printf("%s \n", newTombo.nomeObra);
+//       printf("%s \n", newTombo.nomeAutor);
+//       printf("%s \n", newTombo.nomeEditora);
+//       printf("%d \n", newTombo.codArea);
+//    }
+
 }
 void mostrarObrasPorAutor(){
 	printf("mostrarObrasPorAutor");
@@ -97,6 +106,10 @@ void mostrarObrasPorAutor(){
 void mostrarObrasPorEditora(){
 	printf("mostrarObrasPorEditora");
 }
+void mostrarObrasPorAreas(){
+	printf("mostrarObrasPorAereas");
+}
+
 void encerrarPrograma(){
 	system("clear");// limpar a tela para linux
 	//printf("\033[2J");// limpar a tela para linux
@@ -104,33 +117,58 @@ void encerrarPrograma(){
 	exit(0);
 }
 
+int criarDataBase(FILE *dataBase){
+     if((dataBase = fopen("libraryDataBase.txt","a+")) == NULL){
+    	 exit(0);
+     }else{
+    	 return 1;//error
+     }
+     fclose(dataBase);
+     return 0;//success
+}
 
-void menu(FILE *libraryDataBase){
+
+void menu(FILE *DataBase){
 	int key;
 	char condition;
 
-	printf("Bem vindo ao acervo da biblioteca!\n");
+	printf("***********************************\n");
+	printf("*               MENU              *\n");
+	printf("***********************************\n");
+	printf("*   1 - Cadastrar Tombo           *\n");
+	printf("*   2 - Cadastrar Obras           *\n");
+	printf("*   3 - Mostrar obras por Áreas   *\n");
+	printf("*   4 - Mostrar obras por Autor   *\n");
+	printf("*   5 - Mostrar obras por Editora *\n");
+	printf("*   6 - Sair                      *\n");
+	printf("***********************************\n");
 	printf("Informe-me uma opção: ");
 	scanf("%d",&key);
 	fflush(stdin);
 
 	switch (key) {
 		case 1:
-			cadastrarTombos(libraryDataBase);
+			system("clear");
+			cadastrarTombos(DataBase);
 			break;
 		case 2:
+			system("clear");
 			cadastrarObras();
 			break;
 		case 3:
+			system("clear");
 			mostrarObrasPorAreas();
 			break;
 		case 4:
+			system("clear");
 			mostrarObrasPorAutor();
 			break;
 		case 5:
+			system("clear");
 			mostrarObrasPorEditora();
 			break;
 		case 6:
+			system("clear");
 			encerrarPrograma();
 			break;
 		default:
@@ -140,22 +178,11 @@ void menu(FILE *libraryDataBase){
 			condition = tolower(condition);
 			if(condition == 'y'){
 				system("clear");// limpar a tela para linux
-				//printf("\033[2J");// limpar a tela para linux
-				menu(libraryDataBase);
+				menu(DataBase);
 			}else{
 				encerrarPrograma();
 			}
 	}
-}
-
-int main(int argc, char** argv){
-
-	FILE *dataBase;
-	if(criarDataBase(dataBase))
-		menu(dataBase);
-	else
-		printf("Ops, não foi possível encontrar ou criar um arquivo de banco de dados");
-	return (EXIT_SUCCESS);
 }
 
 
